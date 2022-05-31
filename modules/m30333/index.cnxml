@@ -1,0 +1,773 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Các lệnh có cấu trúc</title>
+  <metadata>
+  <md:content-id>m30333</md:content-id><md:title>Các lệnh có cấu trúc</md:title>
+  <md:abstract>Học xong chương này, sinh viên sẽ nắm được các vấn đề sau:
+- Khối lệnh trong C.
+- Cấu trúc rẽ nhánh. 
+- Cấu trúc lựa chọn.
+- Cấu trúc vòng lặp.
+- Các câu lệnh “đặc biệt”.</md:abstract>
+  <md:uuid>7ceadbfe-5d54-407d-a20f-008d49398b36</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-0968620205248">
+      <title>KHỐI LỆNH</title>
+      <para id="id6999168">Một dãy các khai báo cùng với các câu lệnh nằm trong cặp dấu ngoặc móc { và } được gọi là một khối lệnh. </para>
+      <para id="id6999178">Ví dụ 1:</para>
+      <para id="id6999189">{</para>
+      <para id="id6999194">char ten[30];</para>
+      <para id="id6999201">printf(“\n Nhap vao ten cua ban:”);</para>
+      <para id="id6999207">scanf(“%s”, ten);</para>
+      <para id="id6999213">printf(“\n Chao Ban %s”,ten);</para>
+      <para id="id6999222">}</para>
+      <para id="id6999226">Ví dụ 2:</para>
+      <para id="id6999238">#include &lt;stdio.h&gt;</para>
+      <para id="id6999246">#include&lt;conio.h&gt;</para>
+      <para id="id6999250">int main ()</para>
+      <para id="id6999254">{ /*đây là đầu khối*/</para>
+      <para id="id6999262">char ten[50];</para>
+      <para id="id6999267">printf("Xin cho biet ten cua ban !");</para>
+      <para id="id6999279">scanf("%s",ten);</para>
+      <para id="id6999284">getch();</para>
+      <para id="id6999290">return 0;</para>
+      <para id="id6999295">} /*đây là cuối khối*/</para>
+      <para id="id6999300">Một khối lệnh có thể chứa bên trong nó nhiều khối lệnh khác gọi là khối lệnh lồng nhau. Sự lồng nhau của các khối lệnh là không hạn chế.</para>
+      <para id="id6999312">Minh họa:</para>
+      <para id="id6999317">{</para>
+      <para id="id6999321">… lệnh;</para>
+      <para id="id6999345">{</para>
+      <para id="id6999356">… lệnh;</para>
+      <para id="id6999380">{</para>
+      <para id="id6999384">… lệnh;</para>
+      <para id="id6999409">}</para>
+      <para id="id6999420">… lệnh;</para>
+      <para id="id6999426">}</para>
+      <para id="id6999430">… lệnh;</para>
+      <para id="id6999434">}</para>
+      <para id="id6999438">Lưu ý về phạm vi tác động của biến trong khối lệnh lồng nhau:</para>
+      <para id="id6999445">- Trong các khối lệnh khác nhau hay các khối lệnh lồng nhau có thể khai báo các biến cùng tên.</para>
+      <para id="id6999453">Ví dụ 1:</para>
+      <para id="id6999465">{</para>
+      <para id="id6999469">… lệnh;</para>
+      <para id="id6999474">{</para>
+      <para id="id6999478">int a,b; /*biến a, b trong khối lệnh thứ nhất*/</para>
+      <para id="id6999490">… lệnh;</para>
+      <para id="id6999496">}</para>
+      <para id="id6999500">…lệnh;</para>
+      <para id="id6997308">{</para>
+      <para id="id6997312">int a,b;/*biến a,b trong khối lệnh thứ hai*/</para>
+      <para id="id6997321">… lệnh;</para>
+      <para id="id6997326">}</para>
+      <para id="id6997330">}</para>
+      <para id="id6997335">Ví dụ 2:</para>
+      <para id="id6997346">{</para>
+      <para id="id6997351">int a, b; /*biến a,b trong khối lệnh “bên ngoài”*/</para>
+      <para id="id6997361">… lệnh;</para>
+      <para id="id6997367">{</para>
+      <para id="id6997378">int a,b;/*biến a,b bên trong khối lệnh con*/</para>
+      <para id="id6997388">}</para>
+      <para id="id6997393">}</para>
+      <para id="id6997398">- Nếu một biến được khai báo bên ngoài khối lệnh và không trùng tên với biến bên trong khối lệnh thì nó cũng được sử dụng bên trong khối lệnh.</para>
+      <para id="id6997408">- Một khối lệnh con có thể sử dụng các biến bên ngoài, các lệnh bên ngoài không thể sử dụng các biến bên trong khối lệnh con.</para>
+      <para id="id6997418">Ví dụ:</para>
+      <para id="id6997430">{</para>
+      <para id="id6997434">int a, b, c;</para>
+      <para id="id6997444">…lệnh;</para>
+      <para id="id6997449">{</para>
+      <para id="id6997457">int c, d;</para>
+      <para id="id6997465">…lệnh;</para>
+      <para id="id6997471">}</para>
+      <para id="id6997475">}</para>
+    </section>
+    <section id="id-517742020453">
+      <title>CẤU TRÚC RẼ NHÁNH</title>
+      <section id="id-0146370313965">
+        <title>Cấu trúc rẽ nhánh là một cấu trúc được dùng rất phổ biến trong các ngôn ngữ lập trình nói chung. Trong C, có hai dạng: dạng không đầy đủ và dạng đầy đủ.</title>
+        <para id="id6997488">
+          <!--Empty sections are illegal in CNXML 0.5.  This empty paragraph is a place holder that added as a byproduct of the word importer.-->
+        </para>
+      </section>
+      <section id="id-727911486402">
+        <title>Dạng không đầy đủ</title>
+        <para id="id6997510">Cú pháp:</para>
+        <para id="id6997522">if (&lt;Biểu thức điều kiện&gt;)</para>
+        <para id="id6997544"> &lt;Công việc&gt; </para>
+        <para id="id6997556">Lưu đồ cú pháp:</para>
+        <para id="id6997568"><figure id="id6997579"><media id="id3494814" alt=""><image src=".png" mime-type="image/png" height="73" width="151"/></media></figure>Bt đkiệnCông việcThoátĐúngSai</para>
+        <para id="id6997888">Giải thích:</para>
+        <para id="id6997900">&lt;Công việc&gt; được thể hiện bằng 1 câu lệnh hay 1 khối lệnh.</para>
+        <para id="id6997911">Kiểm tra Biểu thức điều kiện trước.</para>
+        <para id="id6997928">Nếu điều kiện đúng (!= 0) thì thực hiện câu lệnh hoặc khối lệnh liền sau điều kiện.</para>
+        <para id="id6997936">Nếu điều kiện sai thì bỏ qua lệnh hoặc khối lệnh liền sau điều kiện (những lệnh và khối lệnh sau đó vẫn được thực hiện bình thường vì nó không phụ thuộc vào điều kiện sau if).</para>
+        <para id="id6997949">Ví dụ 1: </para>
+        <para id="id6997960">Yêu cầu người thực hiện chương trình nhập vào một số thực a. In ra màn hình kết quả nghịch đảo của a khi a 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow/></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ &lt;&gt; } {}</m:annotation></m:semantics></m:math>0.</para>
+        <para id="id6998020">#include &lt;stdio.h&gt;</para>
+        <para id="id6998024">#include &lt;conio.h&gt;</para>
+        <para id="id6998029">int main ()</para>
+        <para id="id6998033">{</para>
+        <para id="id6998037">float a;</para>
+        <para id="id6998049">printf("Nhap a = "); scanf("%f",&amp;a);</para>
+        <para id="id6998058">if (a !=0 )</para>
+        <para id="id6998067">printf("Nghich dao cua %f la %f",a,1/a);</para>
+        <para id="id6998076">getch();</para>
+        <para id="id6998082">return 0;</para>
+        <para id="id6998087">}</para>
+        <para id="id6998091">Giải thích:</para>
+        <para id="id6998103">- Nếu chúng ta nhập vào a 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow/></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ &lt;&gt; } {}</m:annotation></m:semantics></m:math>0 thì câu lệnh printf("Nghich dao cua %f la %f",a,1/a)được thực hiện, ngược lại câu lệnh này không được thực hiện.</para>
+        <para id="id6687404">- Lệnh getch() luôn luôn được thực hiện vì nó không phải là “lệnh liền sau” điều kiện if.</para>
+        <para id="id6687413">Ví dụ 2: Yêu cầu người chạy chương trình nhập vào giá trị của 2 số a và b, nếu a lớn hơn b thì in ra thông báo “Gia trị của a lớn hơn giá trị của b”, sau đó hiển thị giá trị cụ thể của 2 số lên màn hình.</para>
+        <para id="id6687433">#include &lt;stdio.h&gt;</para>
+        <para id="id6687438">#include&lt;conio.h&gt;</para>
+        <para id="id6687443">int main ()</para>
+        <para id="id6687447">{</para>
+        <para id="id6687451">int a,b;</para>
+        <para id="id6687456">printf("Nhap vao gia tri cua 2 so a, b!");</para>
+        <para id="id6687462">scanf("%d%d",&amp;a,&amp;b);</para>
+        <para id="id6687467">if (a&gt;b)</para>
+        <para id="id6687473">{</para>
+        <para id="id6687478">printf("\n Gia tri cua a lon hon gia tri cua b");</para>
+        <para id="id6687485">printf("\n a=%d, b=%d",a,b);</para>
+        <para id="id6687498">}</para>
+        <para id="id6687503">getch();</para>
+        <para id="id6687508">return 0;</para>
+        <para id="id6687514">}</para>
+        <para id="id6687518">Giải thích:</para>
+        <para id="id6687530">Nếu chúng ta nhập vào giá trị của a lớn hơn giá trị của b thì khối lệnh:</para>
+        <para id="id6687537">{</para>
+        <para id="id6687541">printf("\n Gia tri cua a lon hon gia tri cua b");</para>
+        <para id="id6687548">printf("\n a=%d, b=%d",a,b);</para>
+        <para id="id6687558">}</para>
+        <para id="id6687562">sẽ được thực hiện, ngược lại khối lệnh này không được thực hiện.</para>
+      </section>
+      <section id="id-194392961298">
+        <title>Dạng đầy đủ</title>
+        <para id="id6687579">Cú pháp:</para>
+        <para id="id6687590">if (&lt;Biểu thức điều kiện&gt;)</para>
+        <para id="id6687612">&lt;Công việc 1&gt;</para>
+        <para id="id6687619">else</para>
+        <para id="id6687624">&lt;Công việc 2&gt;</para>
+        <para id="id6687631">Lưu đồ cú pháp:</para>
+        <para id="id6687643"><figure id="id6687657"><media id="id7995007" alt=""><image src=".png" mime-type="image/png" height="123" width="20"/></media></figure>Biểu thứcđiều kiệnCông việc 1ThoátĐúngSaiCông việc 2Giải thích:</para>
+        <para id="id6688020">Công việc 1, công việc 2 được thể hiện là 1 câu lệnh hay 1 khối lệnh.</para>
+        <para id="id6688035">Đầu tiên Biểu thức điều kiện được kiểm tra trước.</para>
+        <para id="id6688053">Nếu điều kiện đúng thì thực hiện công việc 1.</para>
+        <para id="id6688059">Nếu điều kiện sai thì thực hiện công việc 2.</para>
+        <para id="id6688066">Các lệnh phía sau công việc 2 không phụ thuộc vào điều kiện.</para>
+        <para id="id6688072">Ví dụ 1: Yêu cầu người thực hiện chương trình nhập vào một số thực a. In ra màn hình kết quả nghịch đảo của a khi a 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow/></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ &lt;&gt; } {}</m:annotation></m:semantics></m:math>0, khi a =0 in ra thông báo “Khong the tim duoc nghich dao cua a”</para>
+        <para id="id6688141">#include &lt;stdio.h&gt;</para>
+        <para id="id6688146">#include &lt;conio.h&gt;</para>
+        <para id="id6688150">int main ()</para>
+        <para id="id6688154">{</para>
+        <para id="id6688159">float a;</para>
+        <para id="id6688167">printf("Nhap a = "); scanf("%f",&amp;a);</para>
+        <para id="id6688177">if (a !=0 )</para>
+        <para id="id6688182">printf("Nghich dao cua %f la %f",a,1/a);</para>
+        <para id="id6688188">else</para>
+        <para id="id6141462">printf(“Khong the tim duoc nghich dao cua a”);</para>
+        <para id="id6141470">getch();</para>
+        <para id="id6141475">return 0;</para>
+        <para id="id6141481">}</para>
+        <para id="id6141485">Giải thích:</para>
+        <para id="id6141497">- Nếu chúng ta nhập vào a 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow/></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ &lt;&gt; } {}</m:annotation></m:semantics></m:math>0 thì câu lệnh printf("Nghich dao cua %f la %f",a,1/a)được thực hiện, ngược lại câu lệnh printf(“Khong the tim duoc nghich dao cua a”) được thực hiện.</para>
+        <para id="id6141579">- Lệnh getch() luôn luôn được thực hiện.</para>
+        <para id="id6141585">Ví dụ 2: Yêu cầu người chạy chương trình nhập vào giá trị của 2 số a và b, nếu a lớn hơn b thì in ra thông báo “Gia trị của a lớn hơn giá trị của b, giá trị của 2 số”, ngược lại thì in ra màn hình câu thông báo “Giá trị của a nhỏ hơn hoặc bằng giá trị của b, giá trị của 2 số”.</para>
+        <para id="id6141607">#include &lt;stdio.h&gt;</para>
+        <para id="id6141612">#include&lt;conio.h&gt;</para>
+        <para id="id6141616">int main ()</para>
+        <para id="id6141620">{</para>
+        <para id="id6141624">int a, b;</para>
+        <para id="id6141630">printf("Nhap vao gia tri cua 2 so a va b !");</para>
+        <para id="id6141636">scanf("%d%d",&amp;a,&amp;b);</para>
+        <para id="id6141642">if (a&gt;b)</para>
+        <para id="id6141648">{</para>
+        <para id="id6141654">printf("\n a lon hon b”);</para>
+        <para id="id6141665">printf("\n a=%d b=%d ",a,b);</para>
+        <para id="id6141676">}</para>
+        <para id="id6141682">else</para>
+        <para id="id6141687">{</para>
+        <para id="id6141694">printf("\n a nho hon hoac bang b");</para>
+        <para id="id6141701">printf("\n a=%d b=%d",a,b);</para>
+        <para id="id6141711">}</para>
+        <para id="id6141717">printf("\n Thuc hien xong lenh if");</para>
+        <para id="id6141723">getch();</para>
+        <para id="id6141729">return 0;</para>
+        <para id="id6141734">}</para>
+        <para id="id6141738">Giải thích:</para>
+        <para id="id6141750">- Nếu chúng ta nhập vào 40 30  thì kết quả hiển ra trên màn hình là</para>
+        <para id="id6141771">a lon hon b</para>
+        <para id="id6141778">a=40 b=30</para>
+        <para id="id6141786">Thuc hien xong lenh if</para>
+        <para id="id6141793">- Còn nếu chúng ta nhập 40 50  thì kết quả hiển ra trên màn hình là</para>
+        <para id="id6141814">a nho hon hoac bang b</para>
+        <para id="id6141820">a=40 b=50</para>
+        <para id="id6141826">Thuc hien xong lenh if</para>
+        <para id="id6141833">Ví dụ 3: Yêu cầu người thực hiện chương trình nhập vào một số nguyên dương là tháng trong năm và in ra số ngày của tháng đó.</para>
+        <para id="id6141850">- Tháng có 31 ngày: 1, 3, 5, 7, 8, 10, 12</para>
+        <para id="id6141856">- Tháng có 30 ngày: 4, 6, 9, 10</para>
+        <para id="id6141861">- Tháng có 28 hoặc 29 ngày : 2</para>
+        <para id="id6141867">#include &lt;stdio.h&gt;</para>
+        <para id="id6141871">#include&lt;conio.h&gt;</para>
+        <para id="id6141876">int main ()</para>
+        <para id="id6141880">{</para>
+        <para id="id6141884">int thg;</para>
+        <para id="id6141890">printf("Nhap vao thang trong nam !");</para>
+        <para id="id6141899">scanf("%d",&amp;thg);</para>
+        <para id="id6141905">if (thg==1||thg==3||thg==5||thg==7||thg==8||thg==10||thg==12)</para>
+        <para id="id6141911">printf("\n Thang %d co 31 ngay ",thg);</para>
+        <para id="id6141918">else if (thg==4||thg==6||thg==9||thg==11)</para>
+        <para id="id6141924">printf("\n Thang %d co 30 ngay",thg);</para>
+        <para id="id6141931">else if (thg==2)</para>
+        <para id="id6141938">printf("\n Thang %d co 28 hoac 29 ngay",thg);</para>
+        <para id="id6141946"> else printf("Khong co thang %d",thg);</para>
+        <para id="id6141957">printf("\n Thuc hien xong lenh if");</para>
+        <para id="id6141963">getch();</para>
+        <para id="id6141970">return 0;</para>
+        <para id="id6141977">}</para>
+        <para id="id6141982">Giải thích:</para>
+        <para id="id6141993">- Nếu chúng ta nhập vào một trong các số 1, 3, 5, 7, 8, 10, 12 thì kết quả xuất hiện trên màn hình sẽ là </para>
+        <para id="id6142002">Thang &lt;số&gt; co 31 ngay</para>
+        <para id="id6142011">Thuc hien xong lenh if</para>
+        <para id="id6142018">- Nếu chúng ta nhập vào một trong các số 4, 6, 9, 11 thì kết quả xuất hiện trên màn hình sẽ là </para>
+        <para id="id6142026">Thang &lt;số&gt; co 30 ngay</para>
+        <para id="id6142035">Thuc hien xong lenh if</para>
+        <para id="id6142042">- Nếu chúng ta nhập vào số 2 thì kết quả xuất hiện trên màn hình sẽ là </para>
+        <para id="id6142049">Thang 2 co 28 hoac 29 ngay</para>
+        <para id="id6142057">Thuc hien xong lenh if</para>
+        <para id="id6142064">- Nếu chúng ta nhập vào số nhỏ hơn 0 hoặc lớn hơn 12 thì kết quả xuất hiện trên màn hình sẽ là </para>
+        <para id="id6142075">Khong co thang &lt;số&gt;</para>
+        <para id="id6142081">Thuc hien xong lenh if</para>
+        <para id="id6142088">Trong đó &lt;số&gt; là con số mà chúng ta đã nhập vào.</para>
+        <para id="id6142094">Lưu ý: </para>
+        <para id="id6142106">- Ta có thể sử dụng các câu lệnh if…else lồng nhau. Trong trường hợp if…else lồng nhau thì else sẽ kết hợp với if gần nhất chưa có else.</para>
+        <para id="id6142122">- Trong trường hợp câu lệnh if “bên trong” không có else thì phải viết nó trong cặp dấu {} (coi như là khối lệnh) để tránh sự kết hợp else if sai.</para>
+        <para id="id6142132">Ví dụ 1: </para>
+        <para id="id6142144">if ( so1&gt;0)</para>
+        <para id="id6142156">if (so2 &gt; so3)</para>
+        <para id="id6142162">a=so2;</para>
+        <para id="id6142170">else /*else của if (so2&gt;so3) */</para>
+        <para id="id6142182">a=so3;</para>
+        <para id="id6142189">Ví dụ 2:</para>
+        <para id="id6142201">if (so1&gt;0)</para>
+        <para id="id6142207">{</para>
+        <para id="id6142218">if (so2&gt;so3) /*lệnh if này không có else*/</para>
+        <para id="id6142230">a=so2;</para>
+        <para id="id6142237">}</para>
+        <para id="id6142241">else /*else của if (so1&gt;0)*/</para>
+        <para id="id6142249">a=so3;</para>
+      </section>
+    </section>
+    <section id="id-696953533476">
+      <title>CẤU TRÚC LỰA CHỌN</title>
+      <para id="id6142270">Cấu trúc lựa chọn cho phép lựa chọn một trong nhiều trường hợp. Trong C, đó là câu lệnh switch.</para>
+      <para id="id6142281">Cú pháp:</para>
+      <para id="id6142293">switch (&lt;Biểu thức&gt;)</para>
+      <para id="id6142318">{</para>
+      <para id="id6142329">case giá trị 1: </para>
+      <para id="id7052770">Khối lệnh thực hiện công việc 1;</para>
+      <para id="id7052780">break;</para>
+      <para id="id7052794">…</para>
+      <para id="id7052803">case giá trị n:</para>
+      <para id="id7052814">Khối lệnh thực hiện công việc n;</para>
+      <para id="id7052824">break;</para>
+      <para id="id7052839">[default:</para>
+      <para id="id7052858">Khối lệnh thực hiện công việc mặc định;</para>
+      <para id="id7052868">break;]</para>
+      <para id="id7052887">}</para>
+      <para id="id7052899">Lưu đồ:</para>
+      <para id="id7052910">Tính giá trị &lt;Biểu thức&gt;=Giá trị 1 1ĐúngCông việc 1Sai=Giá trị 2 1Công việc 2ĐúngSai=Giá trị n 1Công việc n+1Công việc nĐúngSaiThoát</para>
+      <para id="id6160433">Giải thích:</para>
+      <para id="id6160444">- Tính giá trị của biểu thức trước.</para>
+      <para id="id6160450">- Nếu giá trị của biểu thức bằng giá trị 1 thì thực hiện công việc 1 rồi thoát.</para>
+      <para id="id6160458">- Nếu giá trị của biểu thức khác giá trị 1 thì so sánh với giá trị 2, nếu bằng giá trị 2 thì thực hiện công việc 2 rồi thoát.</para>
+      <para id="id6160468">- Cứ như thế, so sánh tới giá trị n.</para>
+      <para id="id6160474">- Nếu tất cả các phép so sánh trên đều sai thì thực hiện công việc mặc định của trường hợp default.</para>
+      <para id="id6160494">Lưu ý: </para>
+      <para id="id6160506">- Biểu thức trong switch() phải có kết quả là giá trị kiểu số nguyên (int, char, long, …).</para>
+      <para id="id6160514">- Các giá trị sau case cũng phải là kiểu số nguyên.</para>
+      <para id="id6160520">- Không bắt buộc phải có default.</para>
+      <para id="id6160526">Ví dụ 1: Nhập vào một số nguyên, chia số nguyên này cho 2 lấy phần dư. Kiểm tra nếu phần dư bằng 0 thì in ra thông báo “số chẵn”, nếu số dư bằng 1 thì in thông báo “số lẻ”.</para>
+      <para id="id6160545">#include &lt;stdio.h&gt;</para>
+      <para id="id6160550">#include&lt;conio.h&gt;</para>
+      <para id="id6160558">int main ()</para>
+      <para id="id6160562">{ int songuyen, phandu;</para>
+      <para id="id6160571">clrscr();</para>
+      <para id="id6160582">printf("\n Nhap vao so nguyen ");</para>
+      <para id="id6160588">scanf("%d",&amp;songuyen);</para>
+      <para id="id6160599">phandu=(songuyen % 2);</para>
+      <para id="id6160605">switch(phandu)</para>
+      <para id="id6160617">{</para>
+      <para id="id6160622"> case 0: printf("%d la so chan ",songuyen);</para>
+      <para id="id6160629"> break;</para>
+      <para id="id6160638"> case 1: printf("%d la so le ",songuyen);</para>
+      <para id="id6160646"> break;</para>
+      <para id="id6160655">}</para>
+      <para id="id6160660">getch();</para>
+      <para id="id6160667">return 0;</para>
+      <para id="id6160672">}</para>
+      <para id="id6160676">Ví dụ 2: Nhập vào 2 số nguyên và 1 phép toán.</para>
+      <para id="id6160690">- Nếu phép toán là ‘+’, ‘-‘, ‘*’ thì in ra kết qua là tổng, hiệu, tích của 2 số.</para>
+      <para id="id6160698">- Nếu phép toán là ‘/’ thì kiểm tra xem số thứ 2 có khác không hay không? Nếu khác không thì in ra thương của chúng, ngược lại thì in ra thông báo “khong chia cho 0”.</para>
+      <para id="id6160712">#include &lt;stdio.h&gt;</para>
+      <para id="id6160717">#include&lt;conio.h&gt;</para>
+      <para id="id6160721">int main ()</para>
+      <para id="id6160726">{ int so1, so2;</para>
+      <para id="id6160734">float thuong;</para>
+      <para id="id6160744">char pheptoan;</para>
+      <para id="id6160752">clrscr();</para>
+      <para id="id6160757">printf("\n Nhap vao 2 so nguyen ");</para>
+      <para id="id6160762">scanf("%d%d",&amp;so1,&amp;so2);</para>
+      <para id="id6160768">fflush(stdin); </para>
+      <para id="id6160774">/*Xóa ký tự enter trong vùng đệm trước khi nhập phép toán */</para>
+      <para id="id6160788">printf("\n Nhap vao phep toan ");</para>
+      <para id="id6160793">scanf("%c",&amp;pheptoan);</para>
+      <para id="id6160799">switch(pheptoan)</para>
+      <para id="id6160804">{</para>
+      <para id="id6160810"> case '+':</para>
+      <para id="id6160817"> printf("\n %d + %d =%d",so1, so2, so1+so2);</para>
+      <para id="id6160826"> break;</para>
+      <para id="id6160835"> case '-':</para>
+      <para id="id6160843"> printf("\n %d - %d =%d",so1, so2, so1-so2);</para>
+      <para id="id6160852"> break;</para>
+      <para id="id6160864"> case '*':</para>
+      <para id="id6160871"> printf("\n %d * %d =%d",so1, so2, so1*so2);</para>
+      <para id="id6160880"> break;</para>
+      <para id="id6160889"> case '/':</para>
+      <para id="id6160897"> if (so2!=0)</para>
+      <para id="id6160905"> { thuong=float(so1)/float(so2);</para>
+      <para id="id6160918"> printf("\n %d / %d =%f", so1, so2, thuong);</para>
+      <para id="id6160930"> }</para>
+      <para id="id6160938"> else printf("Khong chia duoc cho 0");</para>
+      <para id="id6160947"> break;</para>
+      <para id="id6160956"> default :</para>
+      <para id="id6160964">printf("\n Chua ho tro phep toan %c", pheptoan); break;</para>
+      <para id="id6160971">}</para>
+      <para id="id6160976">getch();</para>
+      <para id="id6160982">return 0;</para>
+      <para id="id6160987">}</para>
+      <para id="id6160991">Trong ví dụ trên, tại sao phải xóa ký tự trong vùng đệm trước khi nhập phép toán?</para>
+      <para id="id6161002">Ví dụ 3: Yêu cầu người thực hiện chương trình nhập vào một số nguyên dương là tháng trong năm và in ra số ngày của tháng đó.</para>
+      <para id="id6161020">- Tháng có 31 ngày: 1, 3, 5, 7, 8, 10, 12</para>
+      <para id="id6161025">- Tháng có 30 ngày: 4, 6, 9, 10</para>
+      <para id="id6161034">- Tháng có 28 hoặc 29 ngày : 2</para>
+      <para id="id6161039">- Nếu nhập vào số &lt;1 hoặc &gt;12 thì in ra câu thông báo “không có tháng này “.</para>
+      <para id="id6161047">#include &lt;stdio.h&gt;</para>
+      <para id="id6161052">#include&lt;conio.h&gt;</para>
+      <para id="id6161056">int main ()</para>
+      <para id="id6161061">{ int thang;</para>
+      <para id="id6161069">clrscr();</para>
+      <para id="id6161075">printf("\n Nhap vao thangs trong nam ");</para>
+      <para id="id6161081">scanf("%d",&amp;thang);</para>
+      <para id="id6161090">switch(thang)</para>
+      <para id="id6161095">{</para>
+      <para id="id6161100"> case 1:</para>
+      <para id="id6161108"> case 3:</para>
+      <para id="id6161116"> case 5:</para>
+      <para id="id6161123"> case 7:</para>
+      <para id="id6161131"> case 8:</para>
+      <para id="id6161138"> case 10:</para>
+      <para id="id6161146"> case 12:</para>
+      <para id="id6161154"> printf("\n Thang %d co 31 ngay ",thang);</para>
+      <para id="id6161163"> break;</para>
+      <para id="id6161171"> case 4:</para>
+      <para id="id6161179"> case 6:</para>
+      <para id="id6161187"> case 9:</para>
+      <para id="id6161194"> case 11:</para>
+      <para id="id6161202"> printf("\n Thang %d co 30 ngay ",thang);</para>
+      <para id="id6161211"> break;</para>
+      <para id="id6161220"> case 2:</para>
+      <para id="id6161227"> printf ("\ Thang 2 co 28 hoac 29 ngay");</para>
+      <para id="id6161236"> break;</para>
+      <para id="id6161245"> default :</para>
+      <para id="id6161253"> printf("\n Khong co thang %d", thang);</para>
+      <para id="id6161262"> break;</para>
+      <para id="id6161271">}</para>
+      <para id="id6142349">getch();</para>
+      <para id="id6142354">return 0;</para>
+      <para id="id6142360">}</para>
+      <para id="id6142364">Trong ví dụ trên, tại sao phải sử dụng case 1:, case 3:, …case 12: ?</para>
+    </section>
+    <section id="id-752933930101">
+      <title>CẤU TRÚC VÒNG LẶP</title>
+      <para id="id6142380">Cấu trúc vòng lặp cho phép lặp lại nhiều lần 1 công việc (được thể hiện bằng 1 câu lệnh hay 1 khối lệnh) nào đó cho đến khi thỏa mãn 1 điều kiện cụ thể. </para>
+      <section id="id-486461670063">
+        <title>Vòng lặp for</title>
+        <para id="id6142398">Lệnh for cho phép lặp lại công việc cho đến khi điều kiện sai.</para>
+        <para id="id6142417">Cú pháp:</para>
+        <para id="id6142429">for (Biểu thức 1; biểu thức 2; biểu thức 3)</para>
+        <para id="id6142435">&lt;Công việc&gt;</para>
+        <para id="id6142443">Lưu đồ:</para>
+        <para id="id6142455">Tính giá trị Biểu thức 1Biểu thức 2Công việcTính giá trị Biểu thức 3EndBeginĐS</para>
+        <para id="id6142999">Giải thích:</para>
+        <para id="id6143011">&lt;Công việc&gt;: được thể hiện là 1 câu lệnh hay 1 khối lệnh. Thứ tự thực hiện của câu lệnh for như sau:</para>
+        <para id="id6143032">B1: Tính giá trị của biểu thức 1.</para>
+        <para id="id6143044">B2: Tính giá trị của biểu thức 2.</para>
+        <para id="id6143057">- Nếu giá trị của biểu thức 2 là sai (=0): thoát khỏi câu lệnh for.</para>
+        <para id="id6143076">- Nếu giá trị của biểu thức 2 là đúng (!=0): &lt;Công việc&gt; được thực hiện.</para>
+        <para id="id6143085">B3: Tính giá trị của biểu thức 3 và quay lại B2. </para>
+        <para id="id6143099">Một số lưu ý khi sử dụng câu lệnh for: </para>
+        <para id="id6143112">- Khi biểu thức 2 vắng mặt thì nó được coi là luôn luôn đúng</para>
+        <para id="id6143122">- Biểu thức 1: thông thường là một phép gán để khởi tạo giá trị ban đầu cho biến điều kiện.</para>
+        <para id="id6143130">- Biểu thức 2: là một biểu thức kiểm tra điều kiện đúng sai để dừng vòng lặp.</para>
+        <para id="id6143138">- Biểu thức 3: thông thường là một phép gán để thay đổi giá trị của biến điều kiện.</para>
+        <para id="id6143146">- Trong mỗi biểu thức có thể có nhiều biểu thức con. Các biểu thức con được phân biệt bởi dấu phẩy.</para>
+        <para id="id6143155">Ví dụ 1: Viết đoạn chương trình in dãy số nguyên từ 1 đến 10.</para>
+        <para id="id6143169">#include &lt;stdio.h&gt;</para>
+        <para id="id6143174">#include&lt;conio.h&gt;</para>
+        <para id="id6143178">int main ()</para>
+        <para id="id6143183">{ int i;</para>
+        <para id="id6143191">clrscr();</para>
+        <para id="id6143197">printf("\n Day so tu 1 den 10 :");</para>
+        <para id="id6143203">for (i=1; i&lt;=10; i++)</para>
+        <para id="id6143208">printf("%d ",i);</para>
+        <para id="id6143215">getch();</para>
+        <para id="id6143220">return 0;</para>
+        <para id="id6143226">}</para>
+        <para id="id6143230">Kết quả chương trình như sau:</para>
+        <figure id="id6143239">
+          <media id="id1167306967108" alt=""><image src="../../media/graphics1-d8ec.png" mime-type="image/png" height="21" width="332"/></media>
+        </figure>
+        <para id="id6143262">Ví dụ 2: Viết chương trình nhập vào một số nguyên n. Tính tổng của các số nguyên từ 1 đến n.</para>
+        <para id="id6143278">#include &lt;stdio.h&gt;</para>
+        <para id="id6143283">#include&lt;conio.h&gt;</para>
+        <para id="id6143287">int main ()</para>
+        <para id="id6143292">{ unsigned int n,i,tong;</para>
+        <para id="id7062318">clrscr();</para>
+        <para id="id7062324">printf("\n Nhap vao so nguyen duong n:"); scanf("%d",&amp;n);</para>
+        <para id="id7062334">tong=0;</para>
+        <para id="id7062340">for (i=1; i&lt;=n; i++)</para>
+        <para id="id7062345">tong+=i;</para>
+        <para id="id7062355">printf("\n Tong tu 1 den %d =%d ",n,tong);</para>
+        <para id="id7062361">getch();</para>
+        <para id="id7062366">return 0;</para>
+        <para id="id7062372">}</para>
+        <para id="id7062376">Nếu chúng ta nhập vào số 9 thì kết quả như sau:</para>
+        <figure id="id7062385">
+          <media id="id1167312432550" alt=""><image src="../../media/graphics2-d8ec.png" mime-type="image/png" height="46" width="245"/></media>
+        </figure>
+        <para id="id7062409">Ví dụ 3: Viết chương trình in ra trên màn hình một ma trận có n dòng m cột như sau:</para>
+        <para id="id7062424">1 2 3 4 5 67</para>
+        <para id="id7062443">2345678</para>
+        <para id="id7062460">3456789</para>
+        <para id="id7062477">…</para>
+        <para id="id7062481">#include &lt;stdio.h&gt;</para>
+        <para id="id7062486">#include&lt;conio.h&gt;</para>
+        <para id="id7062490">int main ()</para>
+        <para id="id7062495">{ unsigned int dong, cot, n, m;</para>
+        <para id="id7062504">clrscr();</para>
+        <para id="id7062509">printf("\n Nhap vao so dong va so cot :");</para>
+        <para id="id7062515">scanf("%d%d",&amp;n,&amp;m);</para>
+        <para id="id7062520">for (dong=0;dong&lt;n;dong++)</para>
+        <para id="id7062526">{</para>
+        <para id="id7062531"> printf("\n");</para>
+        <para id="id7062541"> for (cot=1;cot&lt;=m;cot++)</para>
+        <para id="id7062554">printf("%d\t",dong+cot);</para>
+        <para id="id7062561">}</para>
+        <para id="id7062566">getch();</para>
+        <para id="id7062571">return 0;</para>
+        <para id="id7062577">}</para>
+        <para id="id7062581">Kết quả khi nhập 3 dòng 6 cột như sau</para>
+        <figure id="id7062590">
+          <media id="id7709934" alt=""><image src="../../media/graphics3-00cc.png" mime-type="image/png" height="71" width="352"/></media>
+        </figure>
+      </section>
+      <section id="id-493794266853">
+        <title>Vòng lặp while</title>
+        <para id="id7062622">Vòng lặp while giống như vòng lặp for, dùng để lặp lại một công việc nào đó cho đến khi điều kiện sai.</para>
+        <para id="id7062631">Cú pháp:</para>
+        <para id="id7062643">while (Biểu thức điều kiện)</para>
+        <para id="id7062664">&lt;Công việc&gt;</para>
+        <para id="id7062675">Lưu đồ:</para>
+        <para id="id7062686"><figure id="id7062697"><media id="id1167306755876" alt=""><image src=".png" mime-type="image/png" height="73" width="151"/></media></figure>Đ kiệnCông việcThoátĐúngSaiGiải thích:</para>
+        <para id="id7063013">- &lt;Công việc&gt;: được thể hiện bằng 1 câu lệnh hay 1 khối lệnh.</para>
+        <para id="id7063020">- Kiểm tra Biểu thức điều kiện trước.</para>
+        <para id="id7063038">- Nếu điều kiện sai (=0) thì thoát khỏi lệnh while.</para>
+        <para id="id7063048">- Nếu điều kiện đúng (!=0) thì thực hiện công việc rồi quay lại kiểm tra điều kiện tiếp.</para>
+        <para id="id7063059"/>
+        <para id="id7063063">Lưu ý:</para>
+        <para id="id7063075">- Lệnh while gồm có biểu thức điều kiện và thân vòng lặp (khối lệnh thực hiện công việc)</para>
+        <para id="id7063086">- Vòng lặp dừng lại khi nào điều kiện sai.</para>
+        <para id="id7063095">- Khối lệnh thực hiện công việc có thể rỗng, có thể làm thay đổi điều kiện.</para>
+        <para id="id7063103">Ví dụ 1: Viết đoạn chương trình in dãy số nguyên từ 1 đến 10.</para>
+        <para id="id7063117">#include &lt;stdio.h&gt;</para>
+        <para id="id7063122">#include&lt;conio.h&gt;</para>
+        <para id="id7063127">int main ()</para>
+        <para id="id7063131">{ int i;</para>
+        <para id="id7063140">clrscr();</para>
+        <para id="id7063145">printf("\n Day so tu 1 den 10 :");</para>
+        <para id="id7063151">i=1;</para>
+        <para id="id7063156">while (i&lt;=10)</para>
+        <para id="id7063162">printf("%d ",i++);</para>
+        <para id="id7063169">getch();</para>
+        <para id="id7063174">return 0;</para>
+        <para id="id7063180">}</para>
+        <para id="id7063184">Kết quả chương trình như sau:</para>
+        <figure id="id7063192">
+          <media id="id2569291" alt=""><image src="../../media/graphics4-4e0c.png" mime-type="image/png" height="21" width="332"/></media>
+        </figure>
+        <para id="id7063216">Ví dụ 2: Viết chương trình nhập vào một số nguyên n. Tính tổng của các số nguyên từ 1 đến n.</para>
+        <para id="id7063232">#include &lt;stdio.h&gt;</para>
+        <para id="id7063236">#include&lt;conio.h&gt;</para>
+        <para id="id7063241">int main ()</para>
+        <para id="id7063245">{ unsigned int n,i,tong;</para>
+        <para id="id7063254">clrscr();</para>
+        <para id="id7063260">printf("\n Nhap vao so nguyen duong n:");</para>
+        <para id="id7063266">scanf("%d",&amp;n);</para>
+        <para id="id7063271">tong=0;</para>
+        <para id="id7063277">i=1;</para>
+        <para id="id7063282">while (i&lt;=n)</para>
+        <para id="id7063288">{</para>
+        <para id="id7063293">tong+=i;</para>
+        <para id="id7063300">i++;</para>
+        <para id="id6685409">}</para>
+        <para id="id6685414">printf("\n Tong tu 1 den %d =%d ",n,tong);</para>
+        <para id="id6685420">getch();</para>
+        <para id="id6685425">return 0;</para>
+        <para id="id6685431">}</para>
+        <para id="id6685435">Nếu chúng ta nhập vào số 9 thì kết quả như sau:</para>
+        <figure id="id6685444">
+          <media id="id3726412" alt=""><image src="../../media/graphics5-a468.png" mime-type="image/png" height="46" width="245"/></media>
+        </figure>
+        <para id="id6685468">Ví dụ 3: Viết chương trình in ra trên màn hình một ma trận có n dòng m cột như sau:</para>
+        <para id="id6685483">1 2 3 4 5 67</para>
+        <para id="id6685500">2345678</para>
+        <para id="id6685517">3456789</para>
+        <para id="id6685534">…</para>
+        <para id="id6685538">#include &lt;stdio.h&gt;</para>
+        <para id="id6685543">#include&lt;conio.h&gt;</para>
+        <para id="id6685548">int main ()</para>
+        <para id="id6685552">{ unsigned int dong, cot, n, m;</para>
+        <para id="id6685560">clrscr();</para>
+        <para id="id6685566">printf("\n Nhap vao so dong va so cot :");</para>
+        <para id="id6685572">scanf("%d%d",&amp;n,&amp;m);</para>
+        <para id="id6685584">dong=0;</para>
+        <para id="id6685589">while (dong&lt;n)</para>
+        <para id="id6685601">{</para>
+        <para id="id6685606"> printf("\n");</para>
+        <para id="id6685616"> cot=1;</para>
+        <para id="id6685626"> while (cot&lt;=m)</para>
+        <para id="id6685636">{</para>
+        <para id="id6685642">printf("%d\t",dong+cot);</para>
+        <para id="id6685650">cot++;</para>
+        <para id="id6685657">}</para>
+        <para id="id6685664"> dong++;</para>
+        <para id="id6685673">}</para>
+        <para id="id6685678">getch();</para>
+        <para id="id6685684">return 0;</para>
+        <para id="id6685689">}</para>
+        <para id="id6685693">Kết quả khi nhập 3 dòng 6 cột như sau</para>
+        <figure id="id6685702">
+          <media id="id1167303831604" alt=""><image src="../../media/graphics6-d8ec.png" mime-type="image/png" height="71" width="352"/></media>
+        </figure>
+      </section>
+      <section id="id-0191474190236">
+        <title>Vòng lặp do… while</title>
+        <para id="id6685735">Vòng lặp do … while giống như vòng lặp for, while, dùng để lặp lại một công việc nào đó khi điều kiện còn đúng.</para>
+        <para id="id6685747">Cú pháp:</para>
+        <para id="id6685759">do</para>
+        <para id="id6685763">&lt;Công việc&gt;</para>
+        <para id="id6685769">while (&lt;Biểu thức điều kiện&gt;)</para>
+        <para id="id6685786">Lưu đồ:</para>
+        <para id="id6685798"><figure id="id6685811"><media id="id1167307556581" alt=""><image src=".png" mime-type="image/png" height="73" width="151"/></media></figure>Đ kiệnCông việcThoátĐúngSaiGiải thích:</para>
+        <para id="id6686113">- &lt;Công việc&gt;: được thể hiện bằng 1 câu lệnh hay 1 khối lệnh.</para>
+        <para id="id6686121">- Trước tiên công việc được thực hiện trước, sau đó mới kiểm tra Biểu thức điều kiện.</para>
+        <para id="id6686140">- Nếu điều kiện sai thì thoát khỏi lệnh do …while.</para>
+        <para id="id6686147">- Nếu điều kiện còn đúng thì thực hiện công việc rồi quay lại kiểm tra điều kiện tiếp.</para>
+        <para id="id6686155">Lưu ý:</para>
+        <para id="id6686171">- Lệnh do…while thực hiện công việc ít nhất 1 lần.</para>
+        <para id="id6686178">- Vòng lặp dừng lại khi điều kiện sai.</para>
+        <para id="id6686195">- Khối lệnh thực hiện công việc có thể rỗng, có thể làm thay đổi điều kiện.</para>
+        <para id="id6686203">Ví dụ 1: Viết đoạn chương trình in dãy số nguyên từ 1 đến 10.</para>
+        <para id="id6686218">#include &lt;stdio.h&gt;</para>
+        <para id="id6686222">#include&lt;conio.h&gt;</para>
+        <para id="id6686227">int main ()</para>
+        <para id="id6686231">{ int i;</para>
+        <para id="id6686240">clrscr();</para>
+        <para id="id6686245">printf("\n Day so tu 1 den 10 :");</para>
+        <para id="id6686251">i=1;</para>
+        <para id="id6686256">do</para>
+        <para id="id6686262">printf("%d ",i++);</para>
+        <para id="id6686268">while (i&lt;=10);</para>
+        <para id="id6686274">getch();</para>
+        <para id="id6686279">return 0;</para>
+        <para id="id6686285">}</para>
+        <para id="id6686289">Kết quả chương trình như sau:</para>
+        <figure id="id6686298">
+          <media id="id1167304537179" alt=""><image src="../../media/graphics7-00cc.png" mime-type="image/png" height="21" width="332"/></media>
+        </figure>
+        <para id="id6686321">Ví dụ 2: Viết chương trình nhập vào một số nguyên n. Tính tổng của các số nguyên từ 1 đến n.</para>
+        <para id="id6686337">#include &lt;stdio.h&gt;</para>
+        <para id="id6686342">#include&lt;conio.h&gt;</para>
+        <para id="id6686346">int main ()</para>
+        <para id="id6686351">{ unsigned int n,i,tong;</para>
+        <para id="id6686360">clrscr();</para>
+        <para id="id6686365">printf("\n Nhap vao so nguyen duong n:");</para>
+        <para id="id6686371">scanf("%d",&amp;n);</para>
+        <para id="id6686377">tong=0;</para>
+        <para id="id6686382">i=1;</para>
+        <para id="id6686388">do</para>
+        <para id="id6686393">{</para>
+        <para id="id6686398">tong+=i;</para>
+        <para id="id6686405">i++;</para>
+        <para id="id6686411">} while (i&lt;=n);</para>
+        <para id="id6686417">printf("\n Tong tu 1 den %d =%d ",n,tong);</para>
+        <para id="id6686429">getch();</para>
+        <para id="id6686434">return 0;</para>
+        <para id="id6686440">}</para>
+        <para id="id6686444">Nếu chúng ta nhập vào số 9 thì kết quả như sau:</para>
+        <figure id="id6686453">
+          <media id="id3734425" alt=""><image src="../../media/graphics8-4e0c.png" mime-type="image/png" height="46" width="245"/></media>
+        </figure>
+        <para id="id6686477">Ví dụ 3: Viết chương trình in ra trên màn hình một ma trận có n dòng m cột như sau (n, m&gt;=1):</para>
+        <para id="id7429712">1 2 3 4 5 67</para>
+        <para id="id7429729">2345678</para>
+        <para id="id7429746">3456789</para>
+        <para id="id7429763">…</para>
+        <para id="id7429768">#include &lt;stdio.h&gt;</para>
+        <para id="id7429772">#include&lt;conio.h&gt;</para>
+        <para id="id7429777">int main ()</para>
+        <para id="id7429781">{ unsigned int dong, cot, n, m;</para>
+        <para id="id7429790">clrscr();</para>
+        <para id="id7429795">printf("\n Nhap vao so dong va so cot :");</para>
+        <para id="id7429801">scanf("%d%d",&amp;n,&amp;m);</para>
+        <para id="id7429813">dong=0;</para>
+        <para id="id7429818">do</para>
+        <para id="id7429830">{</para>
+        <para id="id7429835"> printf("\n");</para>
+        <para id="id7429845"> cot=1;</para>
+        <para id="id7429854">do</para>
+        <para id="id7429861">{</para>
+        <para id="id7429867">printf("%d\t",dong+cot);</para>
+        <para id="id7429875">cot++;</para>
+        <para id="id7429882">} while (cot&lt;=m);</para>
+        <para id="id7429889"> dong++;</para>
+        <para id="id7429899">} while (dong&lt;n);</para>
+        <para id="id7429905">getch();</para>
+        <para id="id7429910">return 0;</para>
+        <para id="id7429916">}</para>
+        <para id="id7429920">Kết quả khi nhập 3 dòng 6 cột như sau</para>
+        <figure id="id7429929">
+          <media id="id1167312367959" alt=""><image src="../../media/graphics9-a468.png" mime-type="image/png" height="71" width="352"/></media>
+        </figure>
+      </section>
+      <section id="id-18576622763">
+        <title>So sánh các vòng lặp</title>
+        <para id="id7429961">Vòng lặp for, while: </para>
+        <para id="id7429973">- Kiểm tra điều kiện trước thực hiện công việc sau nên đoạn lệnh thực hiện công việc có thể không được thực hiện .</para>
+        <para id="id7429983">- Vòng lặp kết thúc khi nào điều kiện sai.</para>
+        <para id="id7429989">Vòng lặp do…while: </para>
+        <para id="id7430001">- Thực hiện công việc trước kiểm tra điều kiện sau nên đoạn lệnh thực hiện công việc được thực hiện ít nhất 1 lần.</para>
+        <para id="id7430011">- Vòng lặp kết thúc khi nào điều kiện sai.</para>
+      </section>
+    </section>
+    <section id="id-355541656842">
+      <title>CÁC CÂU LỆNH ĐẶC BIỆT</title>
+      <section id="id-637599001931">
+        <title>Lệnh break</title>
+        <para id="id7430034">Cú pháp: break</para>
+        <para id="id7430056">Dùng để thoát khỏi vòng lặp. Khi gặp câu lệnh này trong vòng lặp, chương trình sẽ thoát ra khỏi vòng lặp và chỉ đến câu lệnh liền sau nó. Nếu nhiều vòng lặp --&gt; break sẽ thoát ra khỏi vòng lặp gần nhất. Ngoài ra, break còn được dùng trong cấu trúc lựa chọn switch.</para>
+      </section>
+      <section id="id-774486392059">
+        <title>Lệnh continue</title>
+        <para id="id7430079">Cú pháp: continue</para>
+        <para id="id7430096">- Khi gặp lệnh này trong các vòng lặp, chương trình sẽ bỏ qua phần còn lại trong vòng lặp và tiếp tục thực hiện lần lặp tiếp theo.</para>
+        <para id="id7430109">- Ðối với lệnh for, biểu thức 3 sẽ được tính trị và quay lại bước 2.</para>
+        <para id="id7430130">- Ðối với lệnh while, do while; biểu thức điều kiện sẽ được tính và xét xem có thể tiếp tục thực hiện &lt;Công việc&gt; nữa hay không? (dựa vào kết quả của biểu thức điều kiện).</para>
+      </section>
+    </section>
+    <section id="id-125206267824">
+      <title>BÀI TẬP</title>
+      <section id="id-953715170778">
+        <title>Mục đích yêu cầu</title>
+        <para id="id7430188">Làm quen và nắm vững các lệnh có cấu trúc của C, biết cách chọn lựa trong trường hợp nào sẽ sử dụng cấu trúc nào. Thực hiện các các chương trình trong phần nội dung bằng cách kết hợp các lệnh lặp, các lệnh rẽ nhánh và các lệnh đơn. </para>
+      </section>
+      <section id="id-529344246839">
+        <title>Nội dung</title>
+        <para id="id7430212">1. Viết chương trình nhập 3 số từ bàn phím, tìm số lớn nhất trong 3 số đó, in kết quả lên màn hình.</para>
+        <para id="id7430223">2. Viết chương trình tính chu vi, diện tích của tam giác với yêu cầu sau khi nhập 3 số a, b, c phải kiểm tra lại xem a, b, c có tạo thành một tam giác không? Nếu có thì tính chu vi và diện tích. Nếu không thì in ra câu " Không tạo thành tam giác".</para>
+        <para id="id7430241">3. Viết chương trình giải phương trình bậc nhất ax+b=0 với a, b nhập từ bàn phím.</para>
+        <para id="id7430248">4. Viết chương trình giải phương trình bậc hai ax2+bx + c = 0 với a, b, c nhập từ bàn phím.</para>
+        <para id="id7430270">5. Viết chương trình nhập từ bàn phím 2 số a, b và một ký tự ch.</para>
+        <para id="id7430280">Nếu: ch là “+“ thì thực hiện phép tính a + b và in kết quả lên màn hình.</para>
+        <para id="id7430298">ch là “–“ thì thực hiện phép tính a - b và in kết quả lên màn hình.</para>
+        <para id="id7430312">ch là “*” thì thực hiện phép tính a * b và in kết quả lên màn hình.</para>
+        <para id="id7430331">ch là “/” thì thực hiện phép tính a / b và in kết quả lên màn hình.</para>
+        <para id="id7430350">6. Viết chương trình nhập vào 2 số là tháng và năm của một năm. Xét xem tháng đó có bao nhiêu ngày? Biết rằng:</para>
+        <para id="id7430361">Nếu tháng là 4, 6, 9, 11 thì số ngày là 30.</para>
+        <para id="id7430370">Nếu tháng là 1, 3, 5, 7, 8, 10, 12 thì số ngày là 31.</para>
+        <para id="id7430377">Nếu tháng là 2 và năm nhuận thì số ngày 29, ngược lại thì số ngày là 28.</para>
+        <para id="id7430384">7. Có hai phương thức gửi tiền tiết kiệm: gửi không kỳ hạn lãi suất 2.4%/tháng, mỗi tháng tính lãi một lần, gửi có kỳ hạn 3 tháng lãi suất 4%/tháng, 3 tháng tính lãi một lần.</para>
+        <para id="id7430396">Viết chương trình tính tổng cộng số tiền cả vốn lẫn lời sau một thời gian gửi nhập từ bàn phím.</para>
+        <para id="id7430405">8. Một số nguyên dương chia hết cho 3 nếu tổng các chữ số của nó chia hết cho 3. Viết chương trình nhập vào một số có 3 chữ số, kiểm tra số đó có chia hết cho 3 dùng tính chất trên.( if )</para>
+        <para id="id7430420">9. Trò chơi "Oẳn tù tì": trò chơi có 2 người chơi mỗi người sẽ dùng tay để biểu thị một trong 3 công cụ sau: Kéo, Bao và Búa.</para>
+        <para id="id7430430">Nguyên tắc: Kéo thắng bao.</para>
+        <para id="id7430440">Bao thắng búa.</para>
+        <para id="id7430454">Búa thắng kéo.</para>
+        <para id="id7430467">Viết chương trình mô phỏng trò chơi này cho hai người chơi và người chơi với máy. (switch)</para>
+        <para id="id7430478">10. Viết chương trình tính tiền điện gồm các khoản sau:</para>
+        <para id="id7430488">Tiền thuê bao điện kế : 1000 đồng / tháng.</para>
+        <para id="id7430497">Định mức sử dụng điện cho mỗi hộ là 50 Kw</para>
+        <para id="id7430503">Phần định mức tính giá 450 đồng /Kwh</para>
+        <para id="id7430509">Nếu phần vượt định mức &lt;= 50 Kw tính giá phạt cho phần này là 700 đồng/Kwh .</para>
+        <para id="id7430522">Nếu phần vượt định mức lớn 50 Kw và nhỏ hơn 100Kw tính giá phạt cho phần này là 910 đồng/Kwh </para>
+        <para id="id7430532">Nếu phần vượt định mức lớn hơn hay bằng 100 Kw tính giá phạt cho phần này là 1200 đồng/Kwh .</para>
+        <para id="id7430541">Với : chỉ số điện kế cũ và chỉ số điện kế mới nhập vào từ bàn phím. In ra màn hình số tiền trả trong định mức, vượt định mức và tổng của chúng. (if)</para>
+        <para id="id7430555">11. Viết chương trình nhận vào giờ, phút, giây dạng (hh:mm:ss ), từ bàn phím. Cộng thêm một số giây vào và in ra kết quả dưới dạng ( hh:mm:ss ).</para>
+        <para id="id7430568">12.Viết chương trình nhập vào ngày tháng năm của một ngày, kiểm tra nó có hợp lệ không.</para>
+        <para id="id7430576">13. Kiểm tra một ký tự nhập vào thuộc tập hợp nào trong các tập ký tự sau:</para>
+        <para id="id7430584">Các ký tự chữ hoa: 'A' ...'Z'</para>
+        <para id="id7430589">Các ký tự chữ thường: 'a' ... 'z'</para>
+        <para id="id7430595">Các ký tự chữ số : '0' ... '9'</para>
+        <para id="id7430604">Các ký tự khác.</para>
+        <para id="id7430609">14. Hệ thập lục phân dùng 16 ký số bao gồm các ký tự 0 .. 9 và A, B, C, D, E ,F.</para>
+        <para id="id7430622">Các ký số A, B, C, D, E, F có giá trị tương ứng trong hệ thập phân như sau:</para>
+        <para id="id7430630">A10</para>
+        <para id="id7430637">B11</para>
+        <para id="id7430643">C12</para>
+        <para id="id7430650">D13</para>
+        <para id="id7430656">E14</para>
+        <para id="id7430663">F15 </para>
+        <para id="id7430672">Hãy viết chương trình cho nhập vào ký tự biểu diễn một ký số của hệ thập lục phân và cho biết giá trị thập phân tương ứng. Trường hợp ký tự nhập vào không thuộc các ký số trên, đưa ra thông báo lỗi : </para>
+        <para id="id7430686">"Hệ thập lục phân không dùng ký số này"</para>
+        <para id="id7430697">15. Viết chương trình nhập vào ngày tháng năm của ngày hôm nay, in ra ngày tháng năm của ngày mai.</para>
+        <para id="id7430706">16. Viết chương trình tính các tổng sau:</para>
+        <para id="id7430719">a) S=1 + 2 + ... + n</para>
+        <para id="id7430738">b) S=1/2 + 2/3 + ... +n/(n+1)</para>
+        <para id="id7430757">c) S= - 1 +2 - 3 +4 - ... + (-1)nn</para>
+        <para id="id7430785">17. Viết chương trình nhập vào một dãy n số, tìm số lớn nhất của dãy và xác định vị trí của số lớn nhất trong dãy.</para>
+        <para id="id7430798">18. Fibonacci là một dãy số được định nghĩa như sau:</para>
+        <para id="id7430808">Fn = 
+<m:math><m:semantics><m:mtable><m:mtr><m:mrow><m:mrow><m:mtext>1, nÕu n</m:mtext><m:mo stretchy="false">=</m:mo><m:mn>1</m:mn></m:mrow><m:mrow/></m:mrow></m:mtr><m:mtr><m:mrow><m:mrow><m:mtext>2, nÕu n </m:mtext><m:mo stretchy="false">=</m:mo><m:mtext> 2</m:mtext></m:mrow><m:mrow/></m:mrow></m:mtr><m:mtr><m:mrow><m:mrow><m:msub><m:mi>F</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>n-1</m:mtext></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">+</m:mo><m:msub><m:mi>F</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>2</m:mn></m:mrow></m:mrow></m:mstyle></m:msub></m:mrow><m:mrow><m:mtext>, nÕu n</m:mtext><m:mo stretchy="false">&gt;</m:mo><m:mn>2</m:mn></m:mrow><m:mrow/></m:mrow></m:mtr><m:mtr><m:mrow><m:mrow/><m:mrow/></m:mrow></m:mtr><m:mtr><m:mrow><m:mrow><m:mtable><m:mtr><m:mrow><m:mrow><m:mo stretchy="true">{</m:mo><m:mrow/></m:mrow><m:mrow><m:mo stretchy="true">{</m:mo><m:mrow/></m:mrow><m:mrow/></m:mrow></m:mtr></m:mtable><m:mrow/></m:mrow></m:mrow></m:mtr><m:mtr><m:mstyle fontsize="12pt"><m:mrow><m:mrow/></m:mrow></m:mstyle></m:mtr></m:mtable><m:annotation encoding="StarMath 5.0"> size 12{alignl { stack {
+ left lbrace "1, nÕu n"=1 {} # 
+ right none  left lbrace "2, nÕu n "=" 2" {} # 
+ right none  left lbrace F rSub { size 8{"n-1"} } +F rSub { size 8{n - 2} } ", nÕu n"&gt;2 {} # 
+ right no } }  lbrace } {}</m:annotation></m:semantics></m:math></para>
+        <para id="id5868693">Viết chương trình in ra màn hình dãy Fibonacci có n số hạng, n nhập từ bàn phím khi cho chạy chương trình.</para>
+        <para id="id5868701">19. Viết chương trình đếm số chữ số của một số nguyên n.</para>
+        <para id="id5868720">20. Tìm số nguyên dương k nhỏ nhất sao cho 2k &gt; n với n là một số nguyên dương nhập từ bàn phím.</para>
+        <para id="id5868744">21. Viết chương trình in ra số đảo ngược của một số nguyên n, với n nhập từ bàn phím. </para>
+        <para id="id5868764">22. Tính giá trị trung bình của một dãy số thực, kết thúc dãy với -1.</para>
+        <para id="id5868783">23. Viết chương trình mô phỏng phép chia nguyên DIV 2 số nguyên a và b như sau: để chia nguyên a và b ta tính trị a-b, sau đó lấy hiệu tìm được lại trừ cho b... tiếp tục cho đến khi hiệu của nó nhỏ hơn b. Số lần thực hiện được các phép trừ ở trên sẽ bằng trị của phép chia nguyên.</para>
+        <para id="id5868809">24. Tìm số nguyên dương N nhỏ nhất sao cho </para>
+        <para id="id5868826">1+1/2+ ...+1/N &gt; S, với S nhập từ bàn phím.</para>
+        <para id="id5868846">25. Viết chương trình tính P=2*4*6*...*(2n), n nhập từ bàn phím.</para>
+        <para id="id5868861">26. Viết chương trình tìm UCLN và BCNN của hai số a và b theo thuật toán sau (Ký hiệu UCLN của a, b là (a,b) còn BCNN là [a,b])</para>
+        <para id="id5868884">- Nếu a chia hết cho b thì (a,b) = b</para>
+        <para id="id5868901">- Nếu a = b*q + r thì (a,b) = (b,r)</para>
+        <para id="id5868918">- [a,b] = a*b/(b,r)</para>
+        <para id="id5868926">27. Viết chương trình nhập vào một số nguyên dương n, in ra màn hình các số nguyên tố p &lt;= n. Số nguyên p gọi là số nguyên tố nếu p chỉ chia hết cho một và chia hết cho bản thân nó.</para>
+        <para id="id5868953">28. Viết chương trình tính gần đúng căn bậc hai của một số dương a theo phương pháp Newton : Trước hết cho x0=(1 + a)/2 sau đó là công thức truy hồi: xn+1=( xn + a/xn)/2</para>
+        <para id="id5869010">xn+1 - xnxn&lt; e thì căn bậc hai của a bằng xn+1Nếu:</para>
+        <para id="id5869211">Trong đó e là một hằng số cho trước làm độ chính xác. </para>
+        <para id="id5869221">29. Viết chương trình tính gần đúng căn bậc n của một số dương a theo phương pháp Newton : Trước hết cho x0= a/n sau đó là công thức truy hồi: </para>
+        <para id="id5869251">(n-1) xkn +anxkn-1xk+1 = </para>
+        <para id="id5869408">Nếu |a- xnn| &lt; e thì xn là căn bậc n của a. Trong đó e là một hằng số cho trước làm độ chính xác. Nếu a &lt; 0 và n chẵn thì không tồn tại căn.</para>
+      </section>
+    </section>
+  </content>
+</document>
