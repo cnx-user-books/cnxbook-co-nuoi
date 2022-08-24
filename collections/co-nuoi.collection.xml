@@ -1,3 +1,26 @@
-<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="en" type="Course">  <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">  <md:content-id>col10760</md:content-id>  <md:title>co nuoi</md:title>      <md:license url="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License 3.0</md:license>  <md:language>en</md:language>              <md:uuid>3bd2fcea-0d5f-41f9-98fc-1ed55dd5d76a</md:uuid>
-<md:slug>co-nuoi</md:slug>
-</metadata>  <col:content>                        <col:subcollection>        <md:title>(Untitled)</md:title>                                <col:content>                    <col:module document="m29015"/>                            <col:module document="m29001"/>                            <col:module document="m30333"/>                            <col:module document="m29882"/>                          </col:content>      </col:subcollection>                            <col:subcollection>        <md:title>(Untitled)</md:title>                                <col:content>                  </col:content>      </col:subcollection>      </col:content></col:collection>
+<?xml version="1.0"?>
+<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="en" type="Course" authors="nguyen thi minh hong">
+  <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+    <md:content-id>col10760</md:content-id>
+    <md:title>co nuoi</md:title>
+    <md:license url="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License 3.0</md:license>
+    <md:language>en</md:language>
+    <md:uuid>3bd2fcea-0d5f-41f9-98fc-1ed55dd5d76a</md:uuid>
+    <md:slug>co-nuoi</md:slug>
+  </metadata>
+  <col:content>
+    <col:subcollection>
+      <md:title>(Untitled)</md:title>
+      <col:content>
+        <col:module document="m29015"/>
+        <col:module document="m29001"/>
+        <col:module document="m30333"/>
+        <col:module document="m29882"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>(Untitled)</md:title>
+      <col:content>                  </col:content>
+    </col:subcollection>
+  </col:content>
+</col:collection>
